@@ -1,0 +1,52 @@
+<h1>Listing Estimates</h1>
+
+<table style='margin: 30px' class='table' >
+  <thead>
+    <tr>
+      <th scope='col' >Id</th>
+      <th scope='col'>Name</th>
+      <th scope='col'>Date</th>
+      <th scope='col'>Total Amount</th>
+      <th scope='col'>Validated</th>
+      <th scope='col' colspan="4">Actions</th>
+    </tr>
+  </thead>
+
+  <div class='col-md-6'>
+    <%= link_to "New estimate", new_estimate_path, class: 'btn btn-primary' %>
+  </div>
+
+  <tbody>
+    <% @estimates.each do |estimate| %>
+      <tr>
+        <td><%= estimate.id %></td>
+        <td><%= estimate.label %></td>
+        <td><%= estimate.date&.strftime("%B %d, %Y") %></td>
+        <td><%= estimate.total_with_tax %> € </td>
+        <td>
+          <% if estimate.validated %>
+            <p style='color: green'> Validated </p>
+          <% else %>
+            <p style='color: red'> Not Validated </p>
+          <% end %>
+        </td>
+        <td>
+        <div class="btn-group-sm">
+         <button class='btn btn-outline-primary' >
+          <%= link_to "View Estimate", estimate_path(estimate.id), method: :get %>
+          </button>
+          <button class='btn btn-warning' >
+            <%= link_to_if !estimate.validated, "Edit Estimate" , edit_estimate_path(estimate.id), method: :get %>
+          </button>
+           <button class='btn btn-danger' >
+            <%= link_to_if !estimate.validated, "Delete Estimate", estimate, method: :delete,
+            data: { 'turbo-method': :delete }
+            %>
+          </button>
+        </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

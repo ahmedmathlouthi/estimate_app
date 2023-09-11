@@ -1,0 +1,23 @@
+{
+  "ruby.rubocop.onSave": true,
+  "editor.formatOnSave": true,
+  "files.associations": {
+      "*.erb": "erb"
+  },
+  "tabnine.experimentalAutoImports": true,
+  "codestream.serverUrl": "https://codestream-us1.service.newrelic.com",
+  "security.allowedUNCHosts": [
+      "wsl.localhost"
+  ],
+  "workbench.colorTheme": "Monokai",
+  "explorer.confirmDelete": false,
+  "[erb]": {
+    "editor.defaultFormatter": "tomclose.format-erb"
+  },
+  "ruby.rubocop.executePath": "/home/ahmed/.asdf/shims/rubocop",
+  "ruby.rubocop.useBundler": true,
+  "emmet.includeLanguages": {
+    "erb": "html",
+    "ruby": "html"
+  },
+}

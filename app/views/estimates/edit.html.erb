@@ -1,0 +1,47 @@
+<div class='container'>
+<h1>Edit </h1>
+ <%= semantic_form_for @estimate, html: { class: 'form-horizontal' } do |f| %>
+  <%= f.inputs do %>
+    <div class="form-group">
+      <%= f.label :label, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.input :label, label: false, input_html: { class: 'form-control', placeholder: 'Label' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :date, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.input :date, as: :datetime_picker, label: false, input_html: { class: 'form-control', placeholder: 'Date' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :validated, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.input :validated, as: :radio, label: 'Validated', label_html: { class: 'radio-inline' } %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.action :submit, as: :input, button_html: { class: 'btn btn-primary' } %>
+    </div>
+  </div>
+<% end %>
+
+<br>
+
+
+<div class="row">
+    <div class="col">
+  <%= link_to "Show this estimate", @estimate, class: 'btn btn-secondary' %>
+    </div>
+    <div class="col">
+  <%= link_to "Back to estimates", estimates_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+<div>
+</div>

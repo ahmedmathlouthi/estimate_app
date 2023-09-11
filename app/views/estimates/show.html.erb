@@ -1,0 +1,97 @@
+<div class='container'>
+  <% if @estimate %>
+    <h2>Estimate Information</h2>
+    <table class='table' >
+      <tr>
+        <th>Estimate ID</th>
+        <td><%= @estimate.id %></td>
+      </tr>
+      <tr>
+        <th>Date of Estimate</th>
+        <td><%= @estimate.date&.strftime("%B %d, %Y") %></td>
+      </tr>
+      <tr>
+        <th>Validated</th>
+        <td>
+        <% if @estimate.validated %>
+            <p style='color: green'> Validated </p>
+          <% else %>
+            <p style='color: red'> Not Validated </p>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  <% else %>
+    <p>Estimate not found.</p>
+  <% end %>
+
+  <% if @estimate.items.any? %>
+    <h2>Items</h2>
+    <table class='table'>
+      <tr>
+        <th>Item Id</th>
+        <th>Item Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Vat rate</th>
+        <th>Total Price</th>
+        <th colspan="3">Actions</th>
+      </tr>
+      <% @estimate.items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td><%= item.description %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.unit_price %> € </td>
+          <td><%= "#{item.vat_rate.to_s} %" %></td>
+          <td><%= item.total_price_with_vat %></td>
+          <td>
+          <button class='btn btn-warning'>
+            <%= link_to_if !@estimate.validated, "Edit", edit_estimate_item_path(@estimate, item) %></td>
+          </button>
+
+          <td>
+          <button class='btn btn-danger'>
+            <%= link_to_if !@estimate.validated, "Destroy", estimate_item_path(@estimate, item) ,
+            method: :delete,
+              data: { 'turbo-method': :delete }%>
+          </button>
+            </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>No items found for this estimate.</p>
+  <% end %>
+
+    <div class="row">
+    <div class="col">
+      <%= link_to_if !@estimate.validated, 'Add new Item', new_estimate_item_path(@estimate), class: 'btn btn-primary' %>
+    </div>
+    <div class="col">
+    <p><%= link_to 'Back to Estimates', estimates_path, class: 'btn btn-secondary' %></p>
+    </div>
+  </div>
+
+  <div class="container">
+        <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <td>Total HT:</td>
+                    <td><%= @estimate.total_base_amount %> €</td>
+                </tr>
+                <tr>
+                    <td>Total TVA:</td>
+                    <td><%= @estimate.total_vat_amount %> €</td>
+                </tr>
+                <tr>
+                    <td>Total TTC:</td>
+                    <td><%= @estimate.total_with_tax %> €</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
